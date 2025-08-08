@@ -1,0 +1,196 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Título */
+#titulo-abaco {
+  width: 100%;
+  text-align: left;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+/* Cuerpo */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f5f5f5;
+  font-family: sans-serif;
+  padding: 20px;
+}
+
+/* Panel de números */
+#panel-numeros {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.numero-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #000;
+}
+.numero-btn:nth-child(1)  { background: #FFDC00; }
+.numero-btn:nth-child(2)  { background: #FF851B; }
+.numero-btn:nth-child(3)  { background: #FF4136; }
+.numero-btn:nth-child(4)  { background: #2ECC40; }
+.numero-btn:nth-child(5)  { background: #0074D9; }
+.numero-btn:nth-child(6)  { background: #B10DC9; }
+.numero-btn:nth-child(7)  { background: #FF69B4; }
+.numero-btn:nth-child(8)  { background: #3D9970; }
+.numero-btn:nth-child(9)  { background: #85144B; }
+
+/* Abaco */
+#abaco {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+  padding-bottom: 12px;
+  margin-top: 24px;
+}
+
+/* Varilla */
+.varilla {
+  position: relative;
+  width: 25px;
+  height: 350px;
+  margin: 0 8px;
+  border-left: 2px solid #333;
+  cursor: pointer;
+}
+.varilla.selected {
+  border-color: #0074D9;
+  background: rgba(0, 116, 217, 0.1);
+}
+
+/* Cuenta (bead) */
+.cuenta {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  transition: transform 0.1s;
+}
+.cuenta:active {
+  transform: scale(1.1);
+}
+
+/* Botón de llevar */
+.push-btn {
+  position: absolute;
+  bottom: -35px;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  border: 1px solid #0074D9;
+  background-color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Recuadro de numeración */
+.varilla > .resultado {
+  position: absolute;
+  bottom: -70px;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  border: 1px solid #333;
+  background-color: #fff;
+  text-align: center;
+  line-height: 30px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Base inferior */
+.base-inferior {
+  width: 100%;
+  height: 12px;
+  background: linear-gradient(to bottom, #5c3d2e, #3a241a);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  border-top: 1px solid #2a1a12;
+  border-radius: 2px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/* Botones generales */
+#botones-accion {
+  display: flex;
+  gap: 12px;
+  margin: 8px 0;
+}
+#deshacer-btn,
+#reset-varilla-btn,
+#resetear-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+#deshacer-btn        { background: #555; }
+#deshacer-btn:hover  { background: #444; }
+#reset-varilla-btn   { background: #2ECC40; }
+#reset-varilla-btn:hover { background: #28a745; }
+#resetear-btn        { background: #FF4136; }
+#resetear-btn:hover  { background: #e03a2f; }
+
+/* Botones de navegación (Atrás / Adelante) */
+.control-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.control-btn:hover {
+  opacity: 1;
+}
+/* Separar totalmente de las varillas */
+#atras-btn {
+  left: -60px;
+}
+#adelante-btn {
+  right: -60px;
+}
+
+/* ----------------------------- */
+/*  Adición para botón de audio  */
+/* ----------------------------- */
+
+/* Botón de volumen con icono */
+#volume-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+#volume-btn .icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
