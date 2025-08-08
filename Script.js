@@ -145,11 +145,9 @@ document.addEventListener('DOMContentLoaded', () => {
     abaco.insertBefore(rod, baseInferior);
 
     // --- Inicio de la funcionalidad de "préstamo" (borrow) ---
-    // Insertar flecha encima de cada varilla, excepto la última
     if (i < numVarillas - 1) {
       const borrowBtn = document.createElement('button');
       borrowBtn.textContent = '→';
-      // Estilos inline para no modificar CSS existente
       Object.assign(borrowBtn.style, {
         position: 'absolute',
         top: '-20px',
@@ -173,7 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
         recordState();
         soundCarry.play();
 
-        // Quitar 1 cuenta del origen
         const lastGroup = origen.grupos[origen.grupos.length - 1];
         if (lastGroup.tamaño > 1) {
           lastGroup.tamaño--;
@@ -182,7 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         renderRodilla(origen);
 
-        // Añadir 10 cuentas a la varilla de la derecha
         const destino = rodillas[i + 1];
         destino.grupos.push({ tamaño: 10, color: paleta[1] });
         renderRodilla(destino);
