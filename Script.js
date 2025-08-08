@@ -1,4 +1,4 @@
-// script.js
+// Script.js
 
 document.addEventListener('DOMContentLoaded', () => {
   const paleta = [
@@ -7,12 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   // Cargar efectos de sonido
-  const soundSelectRod     = new Audio('sounds/beeps-bonks-boinks 19.mp3');
-  const soundSelectNumber  = new Audio('sounds/beeps-bonks-boinks 21.mp3');
-  const soundDeshacer      = new Audio('sounds/beep 01.mp3');
-  const soundResetVarilla  = new Audio('sounds/beeps-bonks-boinks 7.mp3');
-  const soundResetTodo     = new Audio('sounds/beeps-bonks-boinks 16.mp3');
-  const soundCarry         = new Audio('sounds/beeps-bonks-boinks 20.mp3');
+  const soundSelectRod     = new Audio('Sonidos/beeps-bonks-boinks 19.mp3');
+  const soundSelectNumber  = new Audio('Sonidos/beeps-bonks-boinks 21.mp3');
+  const soundDeshacer      = new Audio('Sonidos/beep 01.mp3');
+  const soundResetVarilla  = new Audio('Sonidos/beeps-bonks-boinks 7.mp3');
+  const soundResetTodo     = new Audio('Sonidos/beeps-bonks-boinks 16.mp3');
+  const soundCarry         = new Audio('Sonidos/beeps-bonks-boinks 20.mp3');
 
   // Control de volumen
   const allSounds = [
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const volumeBtn = document.createElement('button');
   volumeBtn.id    = 'volume-btn';
   volumeBtn.innerHTML = `
-    <img src="imagenes/audio.jpg" alt="Audio" class="icon">
+    <img src="imágenes/audio.jpg" alt="Audio" class="icon">
     <span class="volume-text">Volumen 100%</span>
   `;
   panel.parentNode.insertBefore(volumeBtn, panel);
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const v = volumeLevels[currentVolumeIndex];
     allSounds.forEach(s => s.volume = v);
     volumeBtn.innerHTML = `
-      <img src="imagenes/audio.jpg" alt="Audio" class="icon">
+      <img src="imágenes/audio.jpg" alt="Audio" class="icon">
       <span class="volume-text">Volumen ${Math.round(v * 100)}%</span>
     `;
   });
