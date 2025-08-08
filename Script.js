@@ -7,12 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   // Cargar efectos de sonido
-  const soundSelectRod     = new Audio('Sonidos/beeps-bonks-boinks 19.mp3');
-  const soundSelectNumber  = new Audio('Sonidos/beeps-bonks-boinks 21.mp3');
-  const soundDeshacer      = new Audio('Sonidos/beep 01.mp3');
-  const soundResetVarilla  = new Audio('Sonidos/beeps-bonks-boinks 7.mp3');
-  const soundResetTodo     = new Audio('Sonidos/beeps-bonks-boinks 16.mp3');
-  const soundCarry         = new Audio('Sonidos/beeps-bonks-boinks 20.mp3');
+  const soundSelectRod     = new Audio('Sonidos/beeps-bonks-boinks%2019.mp3');
+  const soundSelectNumber  = new Audio('Sonidos/beeps-bonks-boinks%2021.mp3');
+  const soundDeshacer      = new Audio('Sonidos/beep%2001.mp3');
+  const soundResetVarilla  = new Audio('Sonidos/beeps-bonks-boinks%207.mp3');
+  const soundResetTodo     = new Audio('Sonidos/beeps-bonks-boinks%2016.mp3');
+  const soundCarry         = new Audio('Sonidos/beeps-bonks-boinks%2020.mp3');
 
   // Control de volumen
   const allSounds = [
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     abaco.insertBefore(rod, baseInferior);
 
-    // --- Inicio de la funcionalidad de "préstamo" (borrow) ---
+    // Préstamo (borrow)
     if (i < numVarillas - 1) {
       const borrowBtn = document.createElement('button');
       borrowBtn.textContent = '→';
@@ -186,7 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       rod.appendChild(borrowBtn);
     }
-    // --- Fin de la funcionalidad de "préstamo" ---
 
     rodillas.push({ div: rod, grupos: [], resultadoEl: resultado });
   }
@@ -202,6 +201,8 @@ document.addEventListener('DOMContentLoaded', () => {
         idx >= startIndex && idx < startIndex + visibleCount ? '' : 'none';
     });
   }
+
+  updateVisibleRods();
 
   // ← Undo global
   btnAtras.addEventListener('click', () => {
@@ -235,10 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Inicializar vista de varillas
-  updateVisibleRods();
-
-  // Deshacer local (botón superior)
+  // Deshacer local
   deshacerBtn.addEventListener('click', () => {
     soundDeshacer.play();
     if (selectedRod === null) {
