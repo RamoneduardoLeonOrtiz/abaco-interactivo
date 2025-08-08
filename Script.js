@@ -6,10 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
     '#B10DC9', '#FF69B4', '#3D9970', '#DC143C', '#AAAAAA'
   ];
 
-  // Cargar efectos de sonido
+  // Cargar efectos de sonido (rutas ajustadas a nombres reales de archivos)
   const soundSelectRod     = new Audio('Sonidos/beeps-bonks-boinks%2019.mp3');
   const soundSelectNumber  = new Audio('Sonidos/beeps-bonks-boinks%2021.mp3');
-  const soundDeshacer      = new Audio('Sonidos/beep%2001.mp3');
+  const soundDeshacer      = new Audio('Sonidos/pitido%2001.mp3');                    // antes “beep 01.mp3”
   const soundResetVarilla  = new Audio('Sonidos/beeps-bonks-boinks%207.mp3');
   const soundResetTodo     = new Audio('Sonidos/beeps-bonks-boinks%2016.mp3');
   const soundCarry         = new Audio('Sonidos/beeps-bonks-boinks%2020.mp3');
