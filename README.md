@@ -43,5 +43,3 @@ Actividad pensada para uso offline y online, fácil de desplegar en GitHub Pages
 ## 📄 Licencia
 
 Licencia MIT. Puedes usar y adaptar libremente este proyecto.  
-
-
