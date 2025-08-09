@@ -6,13 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
     '#B10DC9', '#FF69B4', '#3D9970', '#DC143C', '#AAAAAA'
   ];
 
-  // Cargar efectos de sonido
-  const soundSelectRod     = new Audio('Sonidos/beeps-bonks-boinks%2019.mp3');
-  const soundSelectNumber  = new Audio('Sonidos/beeps-bonks-boinks%2021.mp3');
-  const soundDeshacer      = new Audio('Sonidos/beep%2001.mp3');
-  const soundResetVarilla  = new Audio('Sonidos/beeps-bonks-boinks%207.mp3');
-  const soundResetTodo     = new Audio('Sonidos/beeps-bonks-boinks%2016.mp3');
-  const soundCarry         = new Audio('Sonidos/beeps-bonks-boinks%2020.mp3');
+  // Cargar efectos de sonido (rutas actualizadas)
+  const soundSelectRod     = new Audio('abaco-interactivo/Sonidos/beeps-bonks-boinks%2019.mp3');
+  const soundSelectNumber  = new Audio('abaco-interactivo/Sonidos/beeps-bonks-boinks%2021.mp3');
+  const soundDeshacer      = new Audio('abaco-interactivo/Sonidos/beep%2001.mp3');
+  const soundResetVarilla  = new Audio('abaco-interactivo/Sonidos/beeps-bonks-boinks%207.mp3');
+  const soundResetTodo     = new Audio('abaco-interactivo/Sonidos/beeps-bonks-boinks%2016.mp3');
+  const soundCarry         = new Audio('abaco-interactivo/Sonidos/beeps-bonks-boinks%2020.mp3');
 
   // Control de volumen
   const allSounds = [
@@ -26,12 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const volumeLevels = [1, 0.75, 0.5, 0.25, 0];
   let currentVolumeIndex = 0;
 
-  // Crear e insertar el botón de volumen (con icono)
+  // Crear e insertar el botón de volumen (con icono y ruta actualizada)
   const panel     = document.getElementById('panel-numeros');
   const volumeBtn = document.createElement('button');
   volumeBtn.id    = 'volume-btn';
   volumeBtn.innerHTML = `
-    <img src="imágenes/audio.jpg" alt="Audio" class="icon">
+    <img src="abaco-interactivo/imágenes/audio.jpg" alt="Audio" class="icon">
     <span class="volume-text">Volumen 100%</span>
   `;
   panel.parentNode.insertBefore(volumeBtn, panel);
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const v = volumeLevels[currentVolumeIndex];
     allSounds.forEach(s => s.volume = v);
     volumeBtn.innerHTML = `
-      <img src="imágenes/audio.jpg" alt="Audio" class="icon">
+      <img src="abaco-interactivo/imágenes/audio.jpg" alt="Audio" class="icon">
       <span class="volume-text">Volumen ${Math.round(v * 100)}%</span>
     `;
   });
