@@ -322,10 +322,3 @@ document.addEventListener('DOMContentLoaded', () => {
     rodObj.resultadoEl.textContent = total;
   }
 });
-
-
-    const total = rodObj.grupos.reduce((s, g) => s + g.tamaño, 0);
-    rodObj.resultadoEl.textContent = total;
-  }
-});
-
