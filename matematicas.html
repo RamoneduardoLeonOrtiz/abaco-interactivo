@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matemáticas</title>
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; }
+    body { 
+      background: url('imagenes/fondodepaginadeinicio.png') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .contenedor {
+      background-color: rgba(255, 255, 255, 0.5);
+      padding: 20px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      margin: 20px 0;
+    }
+    nav li { margin: 0 15px; }
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+    nav a:hover { background-color: rgba(0, 0, 0, 0.1); }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h1>Matemáticas</h1>
+    <nav>
+      <ul>
+        <li><a href="inicio.html">Inicio</a></li>
+        <li><a href="ciencias.html">Ciencias Naturales</a></li>
+        <li><a href="espanol.html">Español</a></li>
+        <li><a href="matematicas.html">Matemáticas</a></li>
+        <li><a href="sociales.html">Sociales</a></li>
+      </ul>
+    </nav>
+
+    <section id="abaco">
+      <h2>Ábaco Interactivo</h2>
+      <a href="abaco-interactivo/index.html">Abrir Ábaco Interactivo</a>
+    </section>
+  </div>
+</body>
+</html>
