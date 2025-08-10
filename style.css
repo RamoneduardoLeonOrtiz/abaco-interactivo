@@ -169,6 +169,7 @@ body {
 .control-btn:hover {
   opacity: 1;
 }
+/* Separar totalmente de las varillas */
 #atras-btn {
   left: -60px;
 }
@@ -182,20 +183,15 @@ body {
 
 /* Botón de volumen con icono */
 #volume-btn {
-  position: absolute;
-  right: 20px;
-  top: 120px;
-  z-index: 10;
-  padding: 5px;
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
   cursor: pointer;
 }
 
 #volume-btn .icon {
-  width: 32px;
-  height: 32px;
-}
-
-/* Recuadro negro para imagen de inicio */
-img[src="imagenes/inicio.jpg"] {
-  border: 4px solid #000;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-right: 5px;
 }
