@@ -7,6 +7,7 @@
 </head>
 <body>
 
+  <!-- Encabezado con imagen de inicio y título -->
   <header style="position: absolute; top: 10px; left: 10px;">
     <div style="display: flex; flex-direction: column; align-items: flex-start;">
       <a href="inicio.html">
@@ -18,14 +19,17 @@
     </div>
   </header>
 
+  <!-- Panel de números -->
   <div id="panel-numeros"></div>
 
+  <!-- Botones de acción -->
   <div id="botones-accion">
     <button id="deshacer-btn">Deshacer</button>
     <button id="reset-varilla-btn">Resetear Varilla</button>
     <button id="resetear-btn">Resetear</button>
   </div>
 
+  <!-- Contenedor del ábaco -->
   <div id="abaco" data-varillas="18">
     <!-- Botón Deshacer (extremo izquierdo) -->
     <button id="atras-btn" class="control-btn">
@@ -40,9 +44,16 @@
       <img src="imagenes/rehacer.webp" alt="Rehacer" width="32" height="32">
     </button>
 
+    <!-- Base inferior del ábaco -->
     <div class="base-inferior"></div>
   </div>
 
+  <!-- Botón de volumen ubicado en la parte derecha -->
+  <div id="volume-btn">
+    <img src="imagenes/volumen.png" alt="Volumen" class="icon">
+  </div>
+
+  <!-- Script principal -->
   <script src="Script.js"></script>
 </body>
 </html>
