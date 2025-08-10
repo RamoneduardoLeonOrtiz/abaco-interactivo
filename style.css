@@ -12,6 +12,7 @@
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 16px;
+  color: #333;
 }
 
 /* Cuerpo */
@@ -194,10 +195,3 @@ body {
   vertical-align: middle;
   margin-right: 5px;
 }
-#titulo-abaco {
-  font-size: 80%;       /* 20% más pequeño */
-  margin-top: 5px;      /* Espacio entre ícono y texto */
-  font-weight: bold;
-  color: #333;
-}
-
