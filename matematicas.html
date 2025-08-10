@@ -5,15 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Matemáticas</title>
   <style>
-    html, body { margin: 0; padding: 0; height: 100%; }
-    body { 
+    /* Asegura que cubra toda la pantalla */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    /* Fondo de la página */
+    body {
       background: url('imagenes/fondodepaginadeinicio.png') no-repeat center center fixed;
       background-size: cover;
     }
+
+    /* Contenedor principal con fondo semi-transparente */
     .contenedor {
       background-color: rgba(255, 255, 255, 0.5);
       padding: 20px;
     }
+
+    /* Barra de navegación horizontal */
     nav ul {
       list-style: none;
       display: flex;
@@ -21,7 +32,11 @@
       padding: 0;
       margin: 20px 0;
     }
-    nav li { margin: 0 15px; }
+
+    nav li {
+      margin: 0 15px;
+    }
+
     nav a {
       text-decoration: none;
       color: #333;
@@ -30,12 +45,35 @@
       border-radius: 4px;
       transition: background-color 0.2s;
     }
-    nav a:hover { background-color: rgba(0, 0, 0, 0.1); }
+
+    nav a:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    /* Sección de Ábaco */
+    #abaco {
+      text-align: center;
+      margin-top: 30px;
+    }
+    #abaco a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 16px;
+      background-color: #3366cc;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+    #abaco a:hover {
+      background-color: #254a99;
+    }
   </style>
 </head>
 <body>
   <div class="contenedor">
     <h1>Matemáticas</h1>
+
     <nav>
       <ul>
         <li><a href="inicio.html">Inicio</a></li>
@@ -48,8 +86,9 @@
 
     <section id="abaco">
       <h2>Ábaco Interactivo</h2>
-      <a href="abaco-interactivo/index.html">Abrir Ábaco Interactivo</a>
+      <a href="index.html">Abrir Ábaco Interactivo</a>
     </section>
   </div>
 </body>
 </html>
+```
