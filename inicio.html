@@ -12,40 +12,60 @@
       height: 100%;
     }
 
-    /* Fondo usando tu ruta correcta */
+    /* Fondo de la página */
     body {
-      background: url('imágenes/fondodepaginadeinicio.png') no-repeat center center fixed;
+      background: url('imagenes/fondodepaginadeinicio.png') no-repeat center center fixed;
       background-size: cover;
     }
 
-    /* Estilos para la imagen de bienvenida */
-    .bienvenida {
-      display: block;
-      max-width: 100%;
-      height: auto;
-      margin-bottom: 20px;
-    }
-
-    /* Contenedor principal con fondo transparente */
+    /* Contenedor principal con fondo semi-transparente */
     .contenedor {
       background-color: rgba(255, 255, 255, 0.5);
       padding: 20px;
     }
+
+    /* Barra de navegación horizontal */
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    nav li {
+      margin: 0 15px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+
+    nav a:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
   </style>
 </head>
 <body>
-  <!-- Imagen de bienvenida (deja tu ruta actual si funciona) -->
-  <img
-    src="imagenespagina/imagenderecuadrodebienvenida.png"
-    alt="Bienvenida al blog"
-    class="bienvenida"
-  />
-
   <div class="contenedor">
-    <h1>
-      Bienvenido a mi Blog, Recursos Digitales para escuelas rurales sin cobertura de datos. RELO
-    </h1>
+    <h1>Bienvenido a mi Blog, Recursos Digitales para escuelas rurales sin cobertura de datos. RELO</h1>
+
+    <nav>
+      <ul>
+        <li><a href="inicio.html">Inicio</a></li>
+        <li><a href="ciencias.html">Ciencias Naturales</a></li>
+        <li><a href="espanol.html">Español</a></li>
+        <li><a href="matematicas.html">Matemáticas</a></li>
+        <li><a href="sociales.html">Sociales</a></li>
+      </ul>
+    </nav>
+
+    <!-- Aquí irá el contenido principal de la página Inicio -->
   </div>
 </body>
 </html>
-```
