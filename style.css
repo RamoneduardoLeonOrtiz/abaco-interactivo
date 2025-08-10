@@ -194,3 +194,10 @@ body {
   vertical-align: middle;
   margin-right: 5px;
 }
+#titulo-abaco {
+  font-size: 80%;       /* 20% más pequeño */
+  margin-top: 5px;      /* Espacio entre ícono y texto */
+  font-weight: bold;
+  color: #333;
+}
+
