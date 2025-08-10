@@ -68,7 +68,7 @@ body {
   position: relative;
   width: 25px;
   height: 350px;
-  margin: 0 8.8px; 
+  margin: 10 px; 
   border-left: 2px solid #333;
   cursor: pointer;
 }
@@ -199,4 +199,5 @@ body {
   height: 40px;
   margin-right: 10px;
 }
+
 
