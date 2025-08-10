@@ -7,12 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   // Cargar efectos de sonido
-const soundSelectRod     = new Audio('sounds/beeps-bonks-boinks%2019.mp3');
-const soundSelectNumber  = new Audio('sounds/beeps-bonks-boinks%2021.mp3');
-const soundDeshacer      = new Audio('sounds/beep%2001.mp3');
-const soundResetVarilla  = new Audio('sounds/beeps-bonks-boinks%207.mp3');
-const soundResetTodo     = new Audio('sounds/beeps-bonks-boinks%2016.mp3');
-const soundCarry         = new Audio('sounds/beeps-bonks-boinks%2020.mp3');
+  const soundSelectRod     = new Audio('sounds/beeps-bonks-boinks%2019.mp3');
+  const soundSelectNumber  = new Audio('sounds/beeps-bonks-boinks%2021.mp3');
+  const soundDeshacer      = new Audio('sounds/beep%2001.mp3');
+  const soundResetVarilla  = new Audio('sounds/beeps-bonks-boinks%207.mp3');
+  const soundResetTodo     = new Audio('sounds/beeps-bonks-boinks%2016.mp3');
+  const soundCarry         = new Audio('sounds/beeps-bonks-boinks%2020.mp3');
 
   // Control de volumen
   const allSounds = [
@@ -27,14 +27,13 @@ const soundCarry         = new Audio('sounds/beeps-bonks-boinks%2020.mp3');
   let currentVolumeIndex = 0;
 
   // Crear e insertar el botón de volumen (con icono)
-  const panel     = document.getElementById('panel-numeros');
   const volumeBtn = document.createElement('button');
-  volumeBtn.id    = 'volume-btn';
+  volumeBtn.id = 'volume-btn';
   volumeBtn.innerHTML = `
     <img src="imagenes/audio.jpg" alt="Audio" class="icon">
     <span class="volume-text">Volumen 100%</span>
   `;
-  panel.parentNode.insertBefore(volumeBtn, panel);
+  document.body.appendChild(volumeBtn);
 
   volumeBtn.addEventListener('click', () => {
     currentVolumeIndex = (currentVolumeIndex + 1) % volumeLevels.length;
@@ -47,6 +46,7 @@ const soundCarry         = new Audio('sounds/beeps-bonks-boinks%2020.mp3');
   });
 
   // Referencias al DOM
+  const panel            = document.getElementById('panel-numeros');
   const abaco            = document.getElementById('abaco');
   const baseInferior     = abaco.querySelector('.base-inferior');
   const deshacerBtn      = document.getElementById('deshacer-btn');
@@ -117,13 +117,6 @@ const soundCarry         = new Audio('sounds/beeps-bonks-boinks%2020.mp3');
       soundCarry.play();
 
       const actualRod = rodillas[i];
-      let total = actualRod.grupos.reduce((s, g) => s + g.tamaño, 0);
-
-      if (total < 10) {
-        alert('No hay suficientes cuentas (mínimo 10) para llevar.');
-        return;
-      }
-
       let toRemove = 10;
       while (toRemove > 0 && actualRod.grupos.length) {
         const last = actualRod.grupos[actualRod.grupos.length - 1];
@@ -254,72 +247,3 @@ const soundCarry         = new Audio('sounds/beeps-bonks-boinks%2020.mp3');
 
   // Reset varilla
   resetVarillaBtn.addEventListener('click', () => {
-    if (selectedRod === null) {
-      alert('Selecciona primero una columna.');
-      return;
-    }
-    recordState();
-    soundResetVarilla.play();
-    const r = rodillas[selectedRod];
-    r.grupos = [];
-    renderRodilla(r);
-  });
-
-  // Reset total
-  resetearBtn.addEventListener('click', () => {
-    recordState();
-    soundResetTodo.play();
-    rodillas.forEach(r => {
-      r.grupos = [];
-      renderRodilla(r);
-    });
-    selectedRod = null;
-    document.querySelectorAll('.varilla.selected')
-      .forEach(el => el.classList.remove('selected'));
-  });
-
-  // Añadir cuentas
-  panel.querySelectorAll('.numero-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (selectedRod === null) {
-        alert('Selecciona primero una columna.');
-        return;
-      }
-      recordState();
-      soundSelectNumber.play();
-      const val   = +btn.dataset.valor;
-      const color = paleta[val];
-      rodillas[selectedRod].grupos.push({ tamaño: val, color });
-      renderRodilla(rodillas[selectedRod]);
-    });
-  });
-
-  // Render de cada varilla
-  function renderRodilla(rodObj) {
-    const el = rodObj.div;
-    el.querySelectorAll('.cuenta').forEach(n => n.remove());
-    let y = el.clientHeight - beadSize;
-
-    rodObj.grupos.forEach(grupo => {
-      for (let k = 0; k < grupo.tamaño; k++) {
-        const bead = document.createElement('div');
-        bead.className = 'cuenta';
-        Object.assign(bead.style, {
-          position:     'absolute',
-          width:        `${beadSize}px`,
-          height:       `${beadSize}px`,
-          borderRadius: '50%',
-          background:   grupo.color,
-          left:         '0',
-          top:          `${y}px`
-        });
-        el.appendChild(bead);
-        y -= (beadSize + gap);
-      }
-    });
-
-    const total = rodObj.grupos.reduce((s, g) => s + g.tamaño, 0);
-    rodObj.resultadoEl.textContent = total;
-  }
-});
-
