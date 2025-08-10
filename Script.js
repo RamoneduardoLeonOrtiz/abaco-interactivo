@@ -1,6 +1,10 @@
 // Script.js
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Si quedó un volume-btn en el HTML, lo borramos para evitar duplicados
+  const existingBtn = document.getElementById('volume-btn');
+  if (existingBtn) existingBtn.remove();
+
   const paleta = [
     '#FFDC00', '#FF851B', '#FF4136', '#2ECC40', '#0074D9',
     '#B10DC9', '#FF69B4', '#3D9970', '#DC143C', '#AAAAAA'
@@ -247,3 +251,71 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Reset varilla
   resetVarillaBtn.addEventListener('click', () => {
+    if (selectedRod === null) {
+      alert('Selecciona primero una columna.');
+      return;
+    }
+    recordState();
+    soundResetVarilla.play();
+    const r = rodillas[selectedRod];
+    r.grupos = [];
+    renderRodilla(r);
+  });
+
+  // Reset total
+  resetearBtn.addEventListener('click', () => {
+    recordState();
+    soundResetTodo.play();
+    rodillas.forEach(r => {
+      r.grupos = [];
+      renderRodilla(r);
+    });
+    selectedRod = null;
+    document.querySelectorAll('.varilla.selected')
+      .forEach(el => el.classList.remove('selected'));
+  });
+
+  // Añadir cuentas
+  panel.querySelectorAll('.numero-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (selectedRod === null) {
+        alert('Selecciona primero una columna.');
+        return;
+      }
+      recordState();
+      soundSelectNumber.play();
+      const val   = +btn.dataset.valor;
+      const color = paleta[val];
+      rodillas[selectedRod].grupos.push({ tamaño: val, color });
+      renderRodilla(rodillas[selectedRod]);
+    });
+  });
+
+  // Render de cada varilla
+  function renderRodilla(rodObj) {
+    const el = rodObj.div;
+    el.querySelectorAll('.cuenta').forEach(n => n.remove());
+    let y = el.clientHeight - beadSize;
+
+    rodObj.grupos.forEach(grupo => {
+      for (let k = 0; k < grupo.tamaño; k++) {
+        const bead = document.createElement('div');
+        bead.className = 'cuenta';
+        Object.assign(bead.style, {
+          position:     'absolute',
+          width:        `${beadSize}px`,
+          height:       `${beadSize}px`,
+          borderRadius: '50%',
+          background:   grupo.color,
+          left:         '0',
+          top:          `${y}px`
+        });
+        el.appendChild(bead);
+        y -= (beadSize + gap);
+      }
+    });
+
+    const total = rodObj.grupos.reduce((s, g) => s + g.tamaño, 0);
+    rodObj.resultadoEl.textContent = total;
+  }
+});
