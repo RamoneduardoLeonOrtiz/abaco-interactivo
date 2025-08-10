@@ -23,6 +23,7 @@ body {
   background: #f5f5f5;
   font-family: sans-serif;
   padding: 20px;
+  position: relative; /* Para posicionar absoluto el botón de audio */
 }
 
 /* Panel de números */
@@ -52,7 +53,7 @@ body {
 .numero-btn:nth-child(8)  { background: #3D9970; }
 .numero-btn:nth-child(9)  { background: #85144B; }
 
-/* Abaco */
+/* Ábaco */
 #abaco {
   display: flex;
   align-items: flex-end;
@@ -181,22 +182,20 @@ body {
 /*  Adición para botón de audio  */
 /* ----------------------------- */
 
-/* Botón de volumen con icono */
 #volume-btn {
+  position: absolute;
+  top: 150px;     /* distancia desde la parte superior */
+  right: 20px;    /* distancia desde el borde derecho */
+  z-index: 10;    /* para quedar encima de otros elementos */
   display: inline-flex;
   align-items: center;
   padding: 5px 10px;
   cursor: pointer;
+  font-size: 2em; /* duplica el tamaño del texto */
 }
 
-/* después */
 #volume-btn .icon {
   width: 40px;
   height: 40px;
   margin-right: 10px;
 }
-
-#volume-btn {
-  font-size: 2em;    /* duplica el tamaño del texto */
-}
-
