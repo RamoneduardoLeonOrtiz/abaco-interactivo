@@ -196,8 +196,10 @@ body {
   height: 32px;
 }
 
+
 /* Recuadro negro para imagen de inicio */
 img[src="imagenes/inicio.jpg"] {
   border: 4px solid #000;
 }
+
 
