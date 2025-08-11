@@ -105,17 +105,18 @@ body {
 /* Recuadro de numeración */
 .varilla > .resultado {
   position: absolute;
-  bottom: -70px;
+  bottom: -75px;           /* bajamos un poco más para compensar el nuevo alto */
   left: 0;
   width: 100%;
-  height: 30px;
+  height: 40px;            /* más alto */
   border: 1px solid #333;
   background-color: #fff;
   text-align: center;
-  line-height: 30px;
+  line-height: 40px;       /* centra el texto verticalmente */
   font-weight: bold;
-  font-size: 14px;
+  font-size: 16px;         /* texto más grande */
 }
+
 
 /* Base inferior */
 .base-inferior {
@@ -199,6 +200,7 @@ body {
   height: 40px;
   margin-right: 10px;
 }
+
 
 
 
