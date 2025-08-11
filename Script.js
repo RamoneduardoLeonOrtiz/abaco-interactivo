@@ -1,7 +1,4 @@
-// Script.js
-
 document.addEventListener('DOMContentLoaded', () => {
-  // Si quedó un volume-btn en el HTML, lo borramos para evitar duplicados
   const existingBtn = document.getElementById('volume-btn');
   if (existingBtn) existingBtn.remove();
 
@@ -10,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     '#B10DC9', '#FF69B4', '#3D9970', '#DC143C', '#AAAAAA'
   ];
 
-  // Cargar efectos de sonido
   const soundSelectRod     = new Audio('sounds/beeps-bonks-boinks%2019.mp3');
   const soundSelectNumber  = new Audio('sounds/beeps-bonks-boinks%2021.mp3');
   const soundDeshacer      = new Audio('sounds/beep%2001.mp3');
@@ -18,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const soundResetTodo     = new Audio('sounds/beeps-bonks-boinks%2016.mp3');
   const soundCarry         = new Audio('sounds/beeps-bonks-boinks%2020.mp3');
 
-  // Control de volumen
   const allSounds = [
     soundSelectRod,
     soundSelectNumber,
@@ -30,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const volumeLevels = [1, 0.75, 0.5, 0.25, 0];
   let currentVolumeIndex = 0;
 
-  // Crear e insertar el botón de volumen (con icono)
   const volumeBtn = document.createElement('button');
   volumeBtn.id = 'volume-btn';
   volumeBtn.innerHTML = `
@@ -49,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   });
 
-  // Referencias al DOM
   const panel            = document.getElementById('panel-numeros');
   const abaco            = document.getElementById('abaco');
   const baseInferior     = abaco.querySelector('.base-inferior');
@@ -59,14 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnAtras         = document.getElementById('atras-btn');
   const btnAdelante      = document.getElementById('adelante-btn');
 
-  // Estado interno
   const numVarillas = parseInt(abaco.dataset.varillas, 10);
   const beadSize    = 25;
   const gap         = 0;
   let selectedRod   = null;
   const rodillas    = [];
 
-  // Pilas globales de Undo/Redo
   const undoStack = [];
   const redoStack = [];
 
@@ -76,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
     redoStack.length = 0;
   }
 
-  // Crear panel de números 0–9
   paleta.forEach((color, i) => {
     const btn = document.createElement('button');
     btn.className        = 'numero-btn';
@@ -86,12 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
     panel.appendChild(btn);
   });
 
-  // Generar varillas
   for (let i = 0; i < numVarillas; i++) {
     const rod = document.createElement('div');
     rod.className        = 'varilla';
     rod.dataset.rodIndex = i;
-    rod.style.position   = 'relative';   // <-- para que los absolute internos se refieran aquí
+    rod.style.position   = 'relative';
 
     const resultado = document.createElement('div');
     resultado.className   = 'resultado';
@@ -142,15 +131,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     abaco.insertBefore(rod, baseInferior);
 
-    // Préstamo (borrow) – flecha superior a la izquierda
+    // ✅ Flecha de préstamo (→) alineada a la derecha
     if (i < numVarillas - 1) {
       const borrowBtn = document.createElement('button');
       borrowBtn.textContent = '→';
       Object.assign(borrowBtn.style, {
         position: 'absolute',
-        top: '-20px',      // altura ajustable
-        left: '0px',       // pegado al borde izquierdo
-        transform: 'none', // sin desplazamiento adicional
+        top: '-20px',
+        right: '0px',
+        left: 'auto',
+        transform: 'none',
         border: 'none',
         background: 'transparent',
         cursor: 'pointer',
@@ -188,7 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
     rodillas.push({ div: rod, grupos: [], resultadoEl: resultado });
   }
 
-  // Scroll interno
   const rodMargin    = 8;
   const visibleCount = Math.floor(abaco.clientWidth / (beadSize + rodMargin * 2));
   let startIndex     = 0;
@@ -202,7 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateVisibleRods();
 
-  // ← Undo global
   btnAtras.addEventListener('click', () => {
     soundDeshacer.play();
     if (undoStack.length === 0) {
@@ -218,7 +206,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // → Redo global
   btnAdelante.addEventListener('click', () => {
     soundDeshacer.play();
     if (redoStack.length === 0) {
@@ -234,7 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Deshacer local
   deshacerBtn.addEventListener('click', () => {
     soundDeshacer.play();
     if (selectedRod === null) {
@@ -250,74 +236,10 @@ document.addEventListener('DOMContentLoaded', () => {
     renderRodilla(r);
   });
 
-  // Reset varilla
   resetVarillaBtn.addEventListener('click', () => {
     if (selectedRod === null) {
       alert('Selecciona primero una columna.');
       return;
     }
     recordState();
-    soundResetVarilla.play();
-    const r = rodillas[selectedRod];
-    r.grupos = [];
-    renderRodilla(r);
-  });
-
-  // Reset total
-  resetearBtn.addEventListener('click', () => {
-    recordState();
-    soundResetTodo.play();
-    rodillas.forEach(r => {
-      r.grupos = [];
-      renderRodilla(r);
-    });
-    selectedRod = null;
-    document.querySelectorAll('.varilla.selected')
-      .forEach(el => el.classList.remove('selected'));
-  });
-
-  // Añadir cuentas
-  panel.querySelectorAll('.numero-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (selectedRod === null) {
-        alert('Selecciona primero una columna.');
-        return;
-      }
-      recordState();
-      soundSelectNumber.play();
-      const val   = +btn.dataset.valor;
-      const color = paleta[val];
-      rodillas[selectedRod].grupos.push({ tamaño: val, color });
-      renderRodilla(rodillas[selectedRod]);
-    });
-  });
-
-  // Render de cada varilla
-  function renderRodilla(rodObj) {
-    const el = rodObj.div;
-    el.querySelectorAll('.cuenta').forEach(n => n.remove());
-    let y = el.clientHeight - beadSize;
-
-    rodObj.grupos.forEach(grupo => {
-      for (let k = 0; k < grupo.tamaño; k++) {
-        const bead = document.createElement('div');
-        bead.className = 'cuenta';
-        Object.assign(bead.style, {
-          position:     'absolute',
-          width:        `${beadSize}px`,
-          height:       `${beadSize}px`,
-          borderRadius: '50%',
-          background:   grupo.color,
-          left:         '0',
-          top:          `${y}px`
-        });
-        el.appendChild(bead);
-        y -= (beadSize + gap);
-      }
-    });
-
-    const total = rodObj.grupos.reduce((s, g) => s + g.tamaño, 0);
-    rodObj.resultadoEl.textContent = total;
-  }
-});
-
+    sound
