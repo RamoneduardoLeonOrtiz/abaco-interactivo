@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
 Object.assign(borrowBtn.style, {
   position: 'absolute',
   top: '0px',         // Alineado con el borde superior de la varilla
-  left: '-20px',      // Desplazado hacia la izquierda para que la cabeza de la flecha toque el borde
+  left: '-23px',      // Desplazado hacia la izquierda para que la cabeza de la flecha toque el borde
   transform: 'none',
   border: 'none',
   background: 'transparent',
@@ -324,6 +324,7 @@ Object.assign(borrowBtn.style, {
     rodObj.resultadoEl.textContent = total;
   }
 });
+
 
 
 
