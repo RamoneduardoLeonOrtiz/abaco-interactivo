@@ -141,15 +141,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     abaco.insertBefore(rod, baseInferior);
 
-    // Préstamo (borrow)
+    // Préstamo (borrow) – flecha superior a la izquierda
     if (i < numVarillas - 1) {
       const borrowBtn = document.createElement('button');
       borrowBtn.textContent = '→';
       Object.assign(borrowBtn.style, {
         position: 'absolute',
-        top: '-20px',
-        left: '50%',
-        transform: 'translateX(-50%)',
+        top: '-35px',      // ajusta el alto si hace falta
+        left: '0px',       // pegado al borde izquierdo de la varilla
+        transform: 'none', // quita el centrado previo
         border: 'none',
         background: 'transparent',
         cursor: 'pointer',
