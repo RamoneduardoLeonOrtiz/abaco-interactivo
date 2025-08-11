@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rod = document.createElement('div');
     rod.className        = 'varilla';
     rod.dataset.rodIndex = i;
+    rod.style.position   = 'relative';   // <-- para que los absolute internos se refieran aquí
 
     const resultado = document.createElement('div');
     resultado.className   = 'resultado';
@@ -147,9 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
       borrowBtn.textContent = '→';
       Object.assign(borrowBtn.style, {
         position: 'absolute',
-        top: '-35px',      // ajusta el alto si hace falta
-        left: '0px',       // pegado al borde izquierdo de la varilla
-        transform: 'none', // quita el centrado previo
+        top: '-20px',      // altura ajustable
+        left: '0px',       // pegado al borde izquierdo
+        transform: 'none', // sin desplazamiento adicional
         border: 'none',
         background: 'transparent',
         cursor: 'pointer',
@@ -319,3 +320,4 @@ document.addEventListener('DOMContentLoaded', () => {
     rodObj.resultadoEl.textContent = total;
   }
 });
+
