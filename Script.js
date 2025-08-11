@@ -1,4 +1,7 @@
+// Script.js
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Si quedó un volume-btn en el HTML, lo borramos para evitar duplicados
   const existingBtn = document.getElementById('volume-btn');
   if (existingBtn) existingBtn.remove();
 
@@ -7,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '#B10DC9', '#FF69B4', '#3D9970', '#DC143C', '#AAAAAA'
   ];
 
+  // Cargar efectos de sonido
   const soundSelectRod     = new Audio('sounds/beeps-bonks-boinks%2019.mp3');
   const soundSelectNumber  = new Audio('sounds/beeps-bonks-boinks%2021.mp3');
   const soundDeshacer      = new Audio('sounds/beep%2001.mp3');
@@ -14,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const soundResetTodo     = new Audio('sounds/beeps-bonks-boinks%2016.mp3');
   const soundCarry         = new Audio('sounds/beeps-bonks-boinks%2020.mp3');
 
+  // Control de volumen
   const allSounds = [
     soundSelectRod,
     soundSelectNumber,
@@ -25,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const volumeLevels = [1, 0.75, 0.5, 0.25, 0];
   let currentVolumeIndex = 0;
 
+  // Crear e insertar el botón de volumen (con icono)
   const volumeBtn = document.createElement('button');
   volumeBtn.id = 'volume-btn';
   volumeBtn.innerHTML = `
@@ -43,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   });
 
+  // Referencias al DOM
   const panel            = document.getElementById('panel-numeros');
   const abaco            = document.getElementById('abaco');
   const baseInferior     = abaco.querySelector('.base-inferior');
@@ -52,12 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnAtras         = document.getElementById('atras-btn');
   const btnAdelante      = document.getElementById('adelante-btn');
 
+  // Estado interno
   const numVarillas = parseInt(abaco.dataset.varillas, 10);
   const beadSize    = 25;
   const gap         = 0;
   let selectedRod   = null;
   const rodillas    = [];
 
+  // Pilas globales de Undo/Redo
   const undoStack = [];
   const redoStack = [];
 
@@ -67,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     redoStack.length = 0;
   }
 
+  // Crear panel de números 0–9
   paleta.forEach((color, i) => {
     const btn = document.createElement('button');
     btn.className        = 'numero-btn';
@@ -76,11 +86,12 @@ document.addEventListener('DOMContentLoaded', () => {
     panel.appendChild(btn);
   });
 
+  // Generar varillas
   for (let i = 0; i < numVarillas; i++) {
     const rod = document.createElement('div');
     rod.className        = 'varilla';
     rod.dataset.rodIndex = i;
-    rod.style.position   = 'relative';
+    rod.style.position   = 'relative';   // <-- para que los absolute internos se refieran aquí
 
     const resultado = document.createElement('div');
     resultado.className   = 'resultado';
@@ -131,15 +142,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     abaco.insertBefore(rod, baseInferior);
 
-    // ✅ Flecha de préstamo (→) alineada a la derecha
+    // Préstamo (borrow) – flecha superior a la izquierda
     if (i < numVarillas - 1) {
       const borrowBtn = document.createElement('button');
       borrowBtn.textContent = '→';
       Object.assign(borrowBtn.style, {
         position: 'absolute',
         top: '-20px',
-        right: '0px',
-        left: 'auto',
+        left: '0px',
         transform: 'none',
         border: 'none',
         background: 'transparent',
@@ -224,22 +234,4 @@ document.addEventListener('DOMContentLoaded', () => {
   deshacerBtn.addEventListener('click', () => {
     soundDeshacer.play();
     if (selectedRod === null) {
-      alert('Selecciona primero una columna.');
-      return;
-    }
-    const r = rodillas[selectedRod];
-    if (!r.grupos.length) {
-      alert('No hay movimientos para deshacer.');
-      return;
-    }
-    r.grupos.pop();
-    renderRodilla(r);
-  });
-
-  resetVarillaBtn.addEventListener('click', () => {
-    if (selectedRod === null) {
-      alert('Selecciona primero una columna.');
-      return;
-    }
-    recordState();
-    sound
+      alert('
