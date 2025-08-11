@@ -30,19 +30,21 @@ body {
 #panel-numeros {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  margin: 16px 0;
+  gap: 12px;      /* espacio aumentado entre cada botón */
+  margin: 24px 0; /* separa un poco más del resto del contenido */
 }
 
 .numero-btn {
-  width: 32px;
-  height: 32px;
+  width: 48px;         /* ancho aumentado */
+  height: 48px;        /* alto aumentado */
   border: 1px solid #000;
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
   color: #000;
+  font-size: 1.2rem;   /* texto más grande */
 }
+
 .numero-btn:nth-child(1)  { background: #FFDC00; }
 .numero-btn:nth-child(2)  { background: #FF851B; }
 .numero-btn:nth-child(3)  { background: #FF4136; }
@@ -213,6 +215,7 @@ body {
   height: 40px;
   margin-right: 10px;
 }
+
 
 
 
