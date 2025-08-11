@@ -1,16 +1,16 @@
 // Script.js
-
 document.addEventListener('DOMContentLoaded', () => {
-  // Si quedó un volume-btn en el HTML, lo borramos para evitar duplicados
+  // Eliminar botón de volumen duplicado si existe
   const existingBtn = document.getElementById('volume-btn');
   if (existingBtn) existingBtn.remove();
 
+  // Paleta de colores
   const paleta = [
     '#FFDC00', '#FF851B', '#FF4136', '#2ECC40', '#0074D9',
     '#B10DC9', '#FF69B4', '#3D9970', '#DC143C', '#AAAAAA'
   ];
 
-  // Cargar efectos de sonido
+  // Efectos de sonido
   const soundSelectRod     = new Audio('sounds/beeps-bonks-boinks%2019.mp3');
   const soundSelectNumber  = new Audio('sounds/beeps-bonks-boinks%2021.mp3');
   const soundDeshacer      = new Audio('sounds/beep%2001.mp3');
@@ -18,19 +18,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const soundResetTodo     = new Audio('sounds/beeps-bonks-boinks%2016.mp3');
   const soundCarry         = new Audio('sounds/beeps-bonks-boinks%2020.mp3');
 
-  // Control de volumen
   const allSounds = [
-    soundSelectRod,
-    soundSelectNumber,
-    soundDeshacer,
-    soundResetVarilla,
-    soundResetTodo,
-    soundCarry
+    soundSelectRod, soundSelectNumber, soundDeshacer,
+    soundResetVarilla, soundResetTodo, soundCarry
   ];
+
+  // Control de volumen
   const volumeLevels = [1, 0.75, 0.5, 0.25, 0];
   let currentVolumeIndex = 0;
 
-  // Crear e insertar el botón de volumen (con icono)
   const volumeBtn = document.createElement('button');
   volumeBtn.id = 'volume-btn';
   volumeBtn.innerHTML = `
@@ -66,7 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let selectedRod   = null;
   const rodillas    = [];
 
-  // Pilas globales de Undo/Redo
   const undoStack = [];
   const redoStack = [];
 
@@ -76,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     redoStack.length = 0;
   }
 
-  // Crear panel de números 0–9
+  // Crear panel de números
   paleta.forEach((color, i) => {
     const btn = document.createElement('button');
     btn.className        = 'numero-btn';
@@ -91,7 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const rod = document.createElement('div');
     rod.className        = 'varilla';
     rod.dataset.rodIndex = i;
-    rod.style.position   = 'relative';   // <-- para que los absolute internos se refieran aquí
 
     const resultado = document.createElement('div');
     resultado.className   = 'resultado';
@@ -142,15 +136,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     abaco.insertBefore(rod, baseInferior);
 
-    // Préstamo (borrow) – flecha superior a la izquierda
+    // Préstamo (→)
     if (i < numVarillas - 1) {
       const borrowBtn = document.createElement('button');
       borrowBtn.textContent = '→';
       Object.assign(borrowBtn.style, {
         position: 'absolute',
         top: '-20px',
-        left: '0px',
-        transform: 'none',
+        left: '50%',
+        transform: 'translateX(-50%)',
         border: 'none',
         background: 'transparent',
         cursor: 'pointer',
@@ -165,7 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
           alert('No hay cuentas para prestar en esta columna.');
           return;
         }
-
         recordState();
         soundCarry.play();
 
@@ -188,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
     rodillas.push({ div: rod, grupos: [], resultadoEl: resultado });
   }
 
+  // Scroll interno
   const rodMargin    = 8;
   const visibleCount = Math.floor(abaco.clientWidth / (beadSize + rodMargin * 2));
   let startIndex     = 0;
@@ -201,6 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateVisibleRods();
 
+  // Undo global
   btnAtras.addEventListener('click', () => {
     soundDeshacer.play();
     if (undoStack.length === 0) {
@@ -216,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Redo global
   btnAdelante.addEventListener('click', () => {
     soundDeshacer.play();
     if (redoStack.length === 0) {
@@ -231,7 +227,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Deshacer local
   deshacerBtn.addEventListener('click', () => {
     soundDeshacer.play();
     if (selectedRod === null) {
-      alert('
+      alert('Selecciona primero una columna.');
+      return;
+    }
+    const r = rodillas[selectedRod];
+    if (!r.grupos.length) {
+      alert('No hay movimientos para deshacer.');
+      return;
+    }
+    r.grupos.pop();
+    renderRodilla(r);
+  });
+
