@@ -1,16 +1,16 @@
 // Script.js
+
 document.addEventListener('DOMContentLoaded', () => {
-  // Eliminar botón de volumen duplicado si existe
+  // Si quedó un volume-btn en el HTML, lo borramos para evitar duplicados
   const existingBtn = document.getElementById('volume-btn');
   if (existingBtn) existingBtn.remove();
 
-  // Paleta de colores
   const paleta = [
     '#FFDC00', '#FF851B', '#FF4136', '#2ECC40', '#0074D9',
     '#B10DC9', '#FF69B4', '#3D9970', '#DC143C', '#AAAAAA'
   ];
 
-  // Efectos de sonido
+  // Cargar efectos de sonido
   const soundSelectRod     = new Audio('sounds/beeps-bonks-boinks%2019.mp3');
   const soundSelectNumber  = new Audio('sounds/beeps-bonks-boinks%2021.mp3');
   const soundDeshacer      = new Audio('sounds/beep%2001.mp3');
@@ -18,15 +18,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const soundResetTodo     = new Audio('sounds/beeps-bonks-boinks%2016.mp3');
   const soundCarry         = new Audio('sounds/beeps-bonks-boinks%2020.mp3');
 
-  const allSounds = [
-    soundSelectRod, soundSelectNumber, soundDeshacer,
-    soundResetVarilla, soundResetTodo, soundCarry
-  ];
-
   // Control de volumen
+  const allSounds = [
+    soundSelectRod,
+    soundSelectNumber,
+    soundDeshacer,
+    soundResetVarilla,
+    soundResetTodo,
+    soundCarry
+  ];
   const volumeLevels = [1, 0.75, 0.5, 0.25, 0];
   let currentVolumeIndex = 0;
 
+  // Crear e insertar el botón de volumen (con icono)
   const volumeBtn = document.createElement('button');
   volumeBtn.id = 'volume-btn';
   volumeBtn.innerHTML = `
@@ -62,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let selectedRod   = null;
   const rodillas    = [];
 
+  // Pilas globales de Undo/Redo
   const undoStack = [];
   const redoStack = [];
 
@@ -71,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     redoStack.length = 0;
   }
 
-  // Crear panel de números
+  // Crear panel de números 0–9
   paleta.forEach((color, i) => {
     const btn = document.createElement('button');
     btn.className        = 'numero-btn';
@@ -136,15 +141,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     abaco.insertBefore(rod, baseInferior);
 
-    // Préstamo (→)
+    // Préstamo (borrow) – flecha superior a la izquierda
     if (i < numVarillas - 1) {
       const borrowBtn = document.createElement('button');
       borrowBtn.textContent = '→';
       Object.assign(borrowBtn.style, {
         position: 'absolute',
-        top: '-20px',
-        left: '50%',
-        transform: 'translateX(-50%)',
+        top: '-35px',      // ajusta el alto si hace falta
+        left: '0px',       // pegado al borde izquierdo de la varilla
+        transform: 'none', // quita el centrado previo
         border: 'none',
         background: 'transparent',
         cursor: 'pointer',
@@ -159,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
           alert('No hay cuentas para prestar en esta columna.');
           return;
         }
+
         recordState();
         soundCarry.play();
 
@@ -195,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateVisibleRods();
 
-  // Undo global
+  // ← Undo global
   btnAtras.addEventListener('click', () => {
     soundDeshacer.play();
     if (undoStack.length === 0) {
@@ -211,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Redo global
+  // → Redo global
   btnAdelante.addEventListener('click', () => {
     soundDeshacer.play();
     if (redoStack.length === 0) {
@@ -243,3 +249,73 @@ document.addEventListener('DOMContentLoaded', () => {
     renderRodilla(r);
   });
 
+  // Reset varilla
+  resetVarillaBtn.addEventListener('click', () => {
+    if (selectedRod === null) {
+      alert('Selecciona primero una columna.');
+      return;
+    }
+    recordState();
+    soundResetVarilla.play();
+    const r = rodillas[selectedRod];
+    r.grupos = [];
+    renderRodilla(r);
+  });
+
+  // Reset total
+  resetearBtn.addEventListener('click', () => {
+    recordState();
+    soundResetTodo.play();
+    rodillas.forEach(r => {
+      r.grupos = [];
+      renderRodilla(r);
+    });
+    selectedRod = null;
+    document.querySelectorAll('.varilla.selected')
+      .forEach(el => el.classList.remove('selected'));
+  });
+
+  // Añadir cuentas
+  panel.querySelectorAll('.numero-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (selectedRod === null) {
+        alert('Selecciona primero una columna.');
+        return;
+      }
+      recordState();
+      soundSelectNumber.play();
+      const val   = +btn.dataset.valor;
+      const color = paleta[val];
+      rodillas[selectedRod].grupos.push({ tamaño: val, color });
+      renderRodilla(rodillas[selectedRod]);
+    });
+  });
+
+  // Render de cada varilla
+  function renderRodilla(rodObj) {
+    const el = rodObj.div;
+    el.querySelectorAll('.cuenta').forEach(n => n.remove());
+    let y = el.clientHeight - beadSize;
+
+    rodObj.grupos.forEach(grupo => {
+      for (let k = 0; k < grupo.tamaño; k++) {
+        const bead = document.createElement('div');
+        bead.className = 'cuenta';
+        Object.assign(bead.style, {
+          position:     'absolute',
+          width:        `${beadSize}px`,
+          height:       `${beadSize}px`,
+          borderRadius: '50%',
+          background:   grupo.color,
+          left:         '0',
+          top:          `${y}px`
+        });
+        el.appendChild(bead);
+        y -= (beadSize + gap);
+      }
+    });
+
+    const total = rodObj.grupos.reduce((s, g) => s + g.tamaño, 0);
+    rodObj.resultadoEl.textContent = total;
+  }
+});
