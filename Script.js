@@ -145,16 +145,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (i < numVarillas - 1) {
       const borrowBtn = document.createElement('button');
       borrowBtn.textContent = '→';
-      Object.assign(borrowBtn.style, {
-        position: 'absolute',
-        top: '-35px',      // ajusta el alto si hace falta
-        left: '0px',       // pegado al borde izquierdo de la varilla
-        transform: 'none', // quita el centrado previo
-        border: 'none',
-        background: 'transparent',
-        cursor: 'pointer',
-        fontSize: '1.2rem'
-      });
+      // Dentro del bloque donde se crea borrowBtn (flecha superior)
+Object.assign(borrowBtn.style, {
+  position: 'absolute',
+  top: '-40px',      // Ajustado para coincidir con tu imagen
+  left: '5px',       // Posición precisa según la flecha original
+  transform: 'none',
+  border: 'none',
+  background: 'transparent',
+  cursor: 'pointer',
+  fontSize: '1.5rem' // Tamaño visualmente igual al de tu imagen
+});
+
 
       borrowBtn.addEventListener('click', e => {
         e.stopPropagation();
@@ -319,3 +321,4 @@ document.addEventListener('DOMContentLoaded', () => {
     rodObj.resultadoEl.textContent = total;
   }
 });
+
