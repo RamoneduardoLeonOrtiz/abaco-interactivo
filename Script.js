@@ -148,8 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // Dentro del bloque donde se crea borrowBtn (flecha superior)
 Object.assign(borrowBtn.style, {
   position: 'absolute',
-  top: '0px',        // Alineado con el borde superior de la varilla
-  left: '-10px',     // Desplazado a la izquierda para que la flecha apunte justo al borde
+  top: '0px',         // Alineado con el borde superior de la varilla
+  left: '-15px',      // Desplazado hacia la izquierda para que la cabeza de la flecha toque el borde
   transform: 'none',
   border: 'none',
   background: 'transparent',
@@ -157,6 +157,7 @@ Object.assign(borrowBtn.style, {
   fontSize: '1.5rem',
   lineHeight: '1'
 });
+
 
 
 
@@ -323,5 +324,6 @@ Object.assign(borrowBtn.style, {
     rodObj.resultadoEl.textContent = total;
   }
 });
+
 
 
