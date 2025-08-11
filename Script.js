@@ -148,14 +148,16 @@ document.addEventListener('DOMContentLoaded', () => {
       // Dentro del bloque donde se crea borrowBtn (flecha superior)
 Object.assign(borrowBtn.style, {
   position: 'absolute',
-  top: '-40px',      // Ajustado para coincidir con tu imagen
-  left: '5px',       // Posición precisa según la flecha original
+  top: '0px',        // Alineado con el borde superior de la varilla
+  left: '-10px',     // Desplazado a la izquierda para que la flecha apunte justo al borde
   transform: 'none',
   border: 'none',
   background: 'transparent',
   cursor: 'pointer',
-  fontSize: '1.5rem' // Tamaño visualmente igual al de tu imagen
+  fontSize: '1.5rem',
+  lineHeight: '1'
 });
+
 
 
       borrowBtn.addEventListener('click', e => {
@@ -321,4 +323,5 @@ Object.assign(borrowBtn.style, {
     rodObj.resultadoEl.textContent = total;
   }
 });
+
 
