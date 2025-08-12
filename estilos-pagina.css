@@ -1,5 +1,4 @@
 nav a[href="matematicas.html"] {
-  color: #7FFFD4;    /* aguamarina */
-  font-size: 1.2em;  /* aumenta un 20% aprox */
+  color: blue;      /* antes #7FFFD4, ahora azul puro */
+  font-size: 1.4em; /* un 40% más grande que el tamaño base */
 }
-
