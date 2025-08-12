@@ -42,7 +42,7 @@ body {
   cursor: pointer;
   font-weight: bold;
   color: #000;
-  font-size: 1.2rem;   /* texto más grande */
+  font-size: 1.44rem;   /* texto más grande */
 }
 
 .numero-btn:nth-child(1)  { background: #FFDC00; }
@@ -218,6 +218,7 @@ body {
 img[src="imagenes/inicio.jpg"] {
   border: 4px solid #000;
 }
+
 
 
 
