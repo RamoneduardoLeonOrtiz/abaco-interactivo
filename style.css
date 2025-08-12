@@ -215,6 +215,10 @@ body {
   height: 40px;
   margin-right: 10px;
 }
+img[src="imagenes/inicio.jpg"] {
+  border: 4px solid #000;
+}
+
 
 
 
