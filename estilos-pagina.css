@@ -16,3 +16,6 @@ nav a[href="ciencias.html"] {
   color: #008000;   /* verde */
   font-size: 1.4em; /* 40% más grande */
 }
+nav a:first-child {
+  font-size: 1.4em;
+}
