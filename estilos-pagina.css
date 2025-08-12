@@ -2,3 +2,17 @@ nav a[href="matematicas.html"] {
   color: blue;      /* antes #7FFFD4, ahora azul puro */
   font-size: 1.4em; /* un 40% más grande que el tamaño base */
 }
+nav a[href="espanol.html"] {
+  color: #FF00FF;   /* fucsia */
+  font-size: 1.4em; /* 40% más grande */
+}
+
+nav a[href="sociales.html"] {
+  color: #800080;   /* morado */
+  font-size: 1.4em; /* 40% más grande */
+}
+
+nav a[href="ciencias.html"] {
+  color: #008000;   /* verde */
+  font-size: 1.4em; /* 40% más grande */
+}
